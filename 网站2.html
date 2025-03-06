@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>让情绪走出身体 - 牛逼哄哄cp组</title>
+    <style>
+        :root {
+            --gradient-angle: 0deg;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft YaHei', sans-serif;
+            min-height: 300vh;
+            background: linear-gradient(var(--gradient-angle), 
+                #FFEEDD 0%, 
+                #FFD4E3 30%, 
+                #C9E9FF 100%);
+            transition: --gradient-angle 1.2s ease;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .card-group {
+            display: grid;
+            gap: 30px;
+            margin: 80px 0;
+        }
+
+        .card {
+            background: rgba(255,255,255,0.9);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            transform: translateY(20px);
+            opacity: 0;
+            transition: 1s ease;
+        }
+
+        .card.visible {
+            transform: none;
+            opacity: 1;
+        }
+
+        .image-box {
+            height: 400px;
+            border: 3px dashed #ff9eb5;
+            border-radius: 15px;
+            margin: 30px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255,255,255,0.6);
+        }
+
+        .heart {
+            position: fixed;
+            font-size: 24px;
+            animation: float 2s ease-out both;
+            pointer-events: none;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            100% { transform: translateY(-200px) scale(0.2); opacity: 0; }
+        }
+
+        h1 {
+            text-align: center;
+            margin: 60px 0;
+            font-size: 2.8rem;
+            color: #6a4a7a;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌸 治愈系产品 🌼</h1>
+        
+        <div class="card-group">
+            <div class="card">
+                <div class="image-box">
+                    <!-- 图片 -->
+                    <span style="color: #ff6b88;">图片</span>
+                </div>
+                <h2>特色</h2>
+                <p>什么什么什么
+
+                使用场景</p>
+            </div>
+
+            <div class="card">
+                <div class="image-box">
+                    <!-- 问卷调查 -->
+                    <span style="color: #6a9cff;">问卷调查</span>
+                </div>
+                <h2>问卷入口</h2>
+                <ol style="text-align: left; margin: 20px;">
+                    <li>在线填写调查问卷</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 动态渐变背景
+        window.addEventListener('scroll', () => {
+            const angle = window.scrollY / 10;
+            document.documentElement.style.setProperty('--gradient-angle', `${angle}deg`);
+            
+            // 卡片渐显逻辑
+            document.querySelectorAll('.card').forEach(card => {
+                const rect = card.getBoundingClientRect();
+                if(rect.top < window.innerHeight * 0.8) {
+                    card.classList.add('visible');
+                }
+            });
+        });
+
+        // 慢速爱心特效
+        document.addEventListener('click', (e) => {
+            const colors = ['#ff6b88', '#6a9cff', '#ffd93d', '#7c5ef1'];
+            for(let i=0; i<10; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.textContent = '❤';
+                heart.style.color = colors[Math.floor(Math.random()*4)];
+                heart.style.left = e.clientX + Math.random()*50 -25 + 'px';
+                heart.style.top = e.clientY + Math.random()*50 -25 + 'px';
+                document.body.appendChild(heart);
+                setTimeout(() => heart.remove(), 1000);
+            }
+        });
+    </script>
+</body>
+</html>
